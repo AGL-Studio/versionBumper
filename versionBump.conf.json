@@ -1,5 +1,5 @@
 {
-  "changeEnv": true,
-  "envVersionValue": "VERSIONN",
+  "changeEnv": false,
+  "envVersionValue": "VERSION",
   "envVersionFile": ".env"
 }
