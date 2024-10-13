@@ -1,0 +1,24 @@
+{
+  "name": "versionbumper",
+  "version": "0.0.1",
+  "description": "A simple cli tool to help you better track versions in your project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AGL-Studio/versionBumper.git"
+  },
+  "keywords": [
+    "versioning",
+    "cli",
+    "tool"
+  ],
+  "author": "AGL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AGL-Studio/versionBumper/issues"
+  },
+  "homepage": "https://github.com/AGL-Studio/versionBumper#readme"
+}
