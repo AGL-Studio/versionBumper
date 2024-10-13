@@ -1,11 +1,11 @@
 {
   "name": "@aglstudio/versionbumper",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A simple cli tool to help you better track versions in your project",
   "type": "module",
   "main": "index.js",
   "bin": {
-    "versionbumper": "./index.js"
+    "versionbumper": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -29,5 +29,6 @@
   "dependencies": {
     "inquirer": "^12.0.0",
     "simple-git": "^3.27.0"
-  }
+  },
+  "devDependencies": {}
 }
