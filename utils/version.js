@@ -9,12 +9,9 @@ export const updatePackageVersion = async (versionType) => {
   switch (versionType) {
     case "major":
       major += 1;
-      minor = 0;
-      patch = 0;
       break;
     case "minor":
       minor += 1;
-      patch = 0;
       break;
     case "patch":
       patch += 1;
