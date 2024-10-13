@@ -26,10 +26,12 @@ const main = async () => {
       name: "updateEnv",
       message: "Do you want to update the .env file?",
       default: false,
+      when: () => conf.changeEnv === undefined,
     },
   ]);
 
-  const { versionType, commitMessage, updateEnv: shouldUpdateEnv } = answers;
+  const { versionType, commitMessage } = answers;
+  const shouldUpdateEnv = conf.changeEnv !== undefined ? conf.changeEnv : answers.updateEnv;
 
   const newVersion = await updatePackageVersion(versionType);
 

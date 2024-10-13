@@ -1,3 +1,4 @@
+import { readFile, writeFile } from "node:fs/promises";
 import { readJsonFile, writeJsonFile } from "./file.js";
 
 const PACKAGE_PATH = "package.json";
