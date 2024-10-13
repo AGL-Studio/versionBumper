@@ -1,10 +1,15 @@
 {
-  "name": "versionbumper",
-  "version": "0.0.1",
+  "name": "@aglstudio/versionbumper",
+  "version": "0.NaN.1",
   "description": "A simple cli tool to help you better track versions in your project",
+  "type": "module",
   "main": "index.js",
+  "bin": {
+    "versionbumper": "./index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "patch-release": "npm version patch && npm publish && git add . && git commit -m 'patch release' && git push"
   },
   "repository": {
     "type": "git",
@@ -20,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/AGL-Studio/versionBumper/issues"
   },
-  "homepage": "https://github.com/AGL-Studio/versionBumper#readme"
+  "homepage": "https://github.com/AGL-Studio/versionBumper#readme",
+  "dependencies": {
+    "inquirer": "^12.0.0",
+    "simple-git": "^3.27.0"
+  }
 }
