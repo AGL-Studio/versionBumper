@@ -4,16 +4,26 @@ const PACKAGE_PATH = "package.json";
 
 export const updatePackageVersion = async (versionType) => {
   const packageJson = await readJsonFile(PACKAGE_PATH);
-  const [major, minor, patch] = packageJson.version.split(".").map(Number);
+  let [major, minor, patch] = packageJson.version.split(".").map(Number);
 
-  const newVersion = {
-    major,
-    minor,
-    patch,
-    [versionType]: packageJson.version[versionType] + 1,
-  };
+  switch (versionType) {
+    case "major":
+      major += 1;
+      minor = 0;
+      patch = 0;
+      break;
+    case "minor":
+      minor += 1;
+      patch = 0;
+      break;
+    case "patch":
+      patch += 1;
+      break;
+    default:
+      throw new Error(`Invalid version type: ${versionType}`);
+  }
 
-  const newVersionString = `${newVersion.major}.${newVersion.minor}.${newVersion.patch}`;
+  const newVersionString = `${major}.${minor}.${patch}`;
   console.log(
     `Updating ${versionType} version ${packageJson.version} -> ${newVersionString}`
   );
