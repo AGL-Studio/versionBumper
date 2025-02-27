@@ -6,8 +6,25 @@ import { pushToGit } from "./utils/git.js";
 
 const VALID_VERSION_TYPES = ["major", "minor", "patch"];
 
+const parseArgs = () => {
+  const args = process.argv.slice(2);
+  const config = {
+    configPath: null
+  };
+
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === "--config" || args[i] === "-c") {
+      config.configPath = args[i + 1];
+      i++;
+    }
+  }
+
+  return config;
+};
+
 const main = async () => {
-  const conf = await checkForConf();
+  const { configPath } = parseArgs();
+  const conf = await checkForConf(configPath);
 
   const answers = await inquirer.prompt([
     {

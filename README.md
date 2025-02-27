@@ -39,6 +39,20 @@ envVersionFile: (string) The path to the .env file.
 
 To use versionBumper, navigate to your project directory and run:
 
+```sh
+versionBumper [options]
+```
+
+Options:
+- `--config`, `-c`: Specify a custom path to the configuration file (default: versionBump.conf.json)
+
+Examples:
+```sh
+versionBumper
+versionBumper --config ./config/my-version-bump.json
+versionBumper -c ../shared-config.json
+```
+
 You will be prompted to select the type of version change (major, minor, patch) and to enter a commit message. If changeEnv is not specified in the configuration file, you will also be asked if you want to update the .env file.
 
 Example
