@@ -1,6 +1,6 @@
 {
   "name": "@aglstudio/versionbumper",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A simple cli tool to help you better track versions in your project",
   "type": "module",
   "main": "index.js",
