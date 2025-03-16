@@ -66,7 +66,11 @@ export const updateAllVersions = async (versionType, config) => {
       if (file.path === PACKAGE_PATH) continue;
       
       if (file.type === "env") {
+        console.log(`Updating env file: ${file.path} with key: ${file.key}`);
         await updateEnv(newVersion, file.path, file.key);
+      } else if (file.type === "json") {
+        // Handle other file types as needed
+        console.log(`JSON file handling for ${file.path} not implemented yet`);
       }
     }
   }
