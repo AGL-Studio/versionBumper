@@ -1,7 +1,7 @@
 import { readJsonFile } from "./file.js";
 import path from "path";
 
-const DEFAULT_CONF_PATH = "versionBump.conf.json";
+const DEFAULT_CONF_PATH = "./versionBump.conf.json";
 
 export const checkForConf = async (configPath = DEFAULT_CONF_PATH) => {
   try {

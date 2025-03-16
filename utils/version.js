@@ -38,12 +38,20 @@ export const updatePackageVersion = async (versionType) => {
 export const updateEnv = async (newVersion, envPath, envVersionValue) => {
   try {
     const envFile = await readFile(envPath, "utf8");
-    const newEnvFile = envFile.replace(
-      new RegExp(`^${envVersionValue}\\s*=\\s*.*`, "m"),
-      `${envVersionValue}=${newVersion}`
-    );
-    await writeFile(envPath, newEnvFile);
-    console.log(`Updated version in ${envPath} for ${envVersionValue}=${newVersion}`);
+    const regex = new RegExp(`(^|\\n)${envVersionValue}\\s*=.*`, "m");
+    
+    if (!regex.test(envFile)) {
+      console.warn(`Warning: Key "${envVersionValue}" not found in ${envPath}. Adding it.`);
+      const newEnvFile = envFile + `\n${envVersionValue}=${newVersion}`;
+      await writeFile(envPath, newEnvFile);
+    } else {
+      const newEnvFile = envFile.replace(
+        regex,
+        `$1${envVersionValue}=${newVersion}`
+      );
+      await writeFile(envPath, newEnvFile);
+    }
+    console.log(`✓ Updated version in ${envPath}: ${envVersionValue}=${newVersion}`);
   } catch (error) {
     console.error(`Error updating environment file at ${envPath}:`, error);
     throw error;
@@ -62,7 +70,6 @@ export const updateAllVersions = async (versionType, config) => {
       }
     }
   }
-  
   else if (config.changeEnv) {
     const envPath = config.envVersionFile || ".env";
     const envVersionValue = config.envVersionValue || "VERSION";
