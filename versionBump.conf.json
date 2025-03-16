@@ -1,5 +1,16 @@
 {
-  "changeEnv": false,
-  "envVersionValue": "VERSION",
-  "envVersionFile": ".env"
+  "files": [
+    {
+      "path": "package.json",
+      "type": "json",
+      "field": "version"
+    },
+    {
+      "path": ".env",
+      "type": "env",
+      "key": "NEXT_PUBLIC_VERSION"
+    }
+  ],
+  "changeEnv": true,
+  "skipGitCheck": true
 }
