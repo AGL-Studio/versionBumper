@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import inquirer from "inquirer";
 import { checkForConf } from "./utils/config.js";
-import { updatePackageVersion, updateEnv } from "./utils/version.js";
+import { updateAllVersions } from "./utils/version.js";
 import { pushToGit } from "./utils/git.js";
 
 const VALID_VERSION_TYPES = ["major", "minor", "patch"];
@@ -43,22 +43,23 @@ const main = async () => {
       name: "updateEnv",
       message: "Do you want to update the .env file?",
       default: false,
-      when: () => conf.changeEnv === undefined,
+      when: () => conf.changeEnv === undefined && !conf.files,
     },
   ]);
 
   const { versionType, commitMessage } = answers;
-  const shouldUpdateEnv = conf.changeEnv !== undefined ? conf.changeEnv : answers.updateEnv;
-
-  const newVersion = await updatePackageVersion(versionType);
-
-  if (shouldUpdateEnv) {
-    const envPath = conf.envVersionFile || ".env";
-    const envVersionValue = conf.envVersionValue || "VERSION";
-    await updateEnv(newVersion, envPath, envVersionValue);
+  
+  // Create a working config that includes user answers
+  const workingConfig = { ...conf };
+  if (conf.changeEnv === undefined && !conf.files) {
+    workingConfig.changeEnv = answers.updateEnv;
   }
 
-  await pushToGit(newVersion, commitMessage);
+  const newVersion = await updateAllVersions(versionType, workingConfig);
+
+  if (!conf.skipGitCheck) {
+    await pushToGit(newVersion, commitMessage);
+  }
 };
 
 main().catch((error) => {

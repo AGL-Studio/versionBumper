@@ -25,20 +25,9 @@ You can configure versionBumper using a versionBump.conf.json file in the root o
 
 ```json
 {
-  "files": [
-    {
-      "path": "package.json",
-      "type": "json",
-      "field": "version"
-    },
-    {
-      "path": ".env",
-      "type": "env",
-      "key": "NEXT_PUBLIC_VERSION"
-    }
-  ],
   "changeEnv": true,
-  "skipGitCheck": false
+  "envVersionValue": "VERSIONN",
+  "envVersionFile": ".env"
 }
 ```
 

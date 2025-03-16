@@ -10,9 +10,12 @@ export const updatePackageVersion = async (versionType) => {
   switch (versionType) {
     case "major":
       major += 1;
+      minor = 0;
+      patch = 0;
       break;
     case "minor":
       minor += 1;
+      patch = 0;
       break;
     case "patch":
       patch += 1;
@@ -40,8 +43,31 @@ export const updateEnv = async (newVersion, envPath, envVersionValue) => {
       `${envVersionValue}=${newVersion}`
     );
     await writeFile(envPath, newEnvFile);
+    console.log(`Updated version in ${envPath} for ${envVersionValue}=${newVersion}`);
   } catch (error) {
     console.error(`Error updating environment file at ${envPath}:`, error);
     throw error;
   }
+};
+
+export const updateAllVersions = async (versionType, config) => {
+  const newVersion = await updatePackageVersion(versionType);
+  
+  if (config.files && Array.isArray(config.files)) {
+    for (const file of config.files) {
+      if (file.path === PACKAGE_PATH) continue;
+      
+      if (file.type === "env") {
+        await updateEnv(newVersion, file.path, file.key);
+      }
+    }
+  }
+  
+  else if (config.changeEnv) {
+    const envPath = config.envVersionFile || ".env";
+    const envVersionValue = config.envVersionValue || "VERSION";
+    await updateEnv(newVersion, envPath, envVersionValue);
+  }
+  
+  return newVersion;
 };
